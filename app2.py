@@ -12,6 +12,7 @@ from nltk.stem.porter import PorterStemmer
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from nltk import word_tokenize
 import pandas as pd
+from youtube_videos import youtube_search
 
 # Load mongo database
 client = MongoClient()
@@ -191,17 +192,22 @@ def update_output(n_clicks, input_value):
 	best_doc = posts.find_one({'_id':ted_id})
 	sect, stm, max_cos = rec_ted_timestamp(page, ted_id)
 	
-	headline = best_doc['headline'].lower().replace(",","").replace(".","").replace("?","").replace("-","_")
-	headline = "_".join( headline.split() )
-	headline = headline.replace("'","_")
+	#headline = best_doc['headline'].lower().replace(",","").replace(".","").replace("?","").replace("-","_")
+	#headline = "_".join( headline.split() )
+	#headline = headline.replace("'","_")
 	
-	speaker = best_doc['speaker'].lower().replace(",","").replace(".","").replace("?","").replace("-","_")
-	speaker = "_".join( speaker.split() )
-	speaker = speaker.replace("'","_")
-	url = speaker+"_"+headline
+	#speaker = best_doc['speaker'].lower().replace(",","").replace(".","").replace("?","").replace("-","_")
+	#speaker = "_".join( speaker.split() )
+	#speaker = speaker.replace("'","_")
+	#url = speaker+"_"+headline
+
+	yt_search_string = best_doc['speaker'] + ' ' + best_doc['headline']
+	tok, just_json = youtube_search( yt_search_string, max_results=1)
+	vidID = just_json[0]['id']['videoId']
 	return html.Div(children=[ 
 				html.Div(children=[
-					html.Iframe(src='https://embed.ted.com/talks/'+url, width=800, height=400)
+					#html.Iframe(src='https://embed.ted.com/talks/'+url, width=800, height=400)
+					html.Iframe(src='https://www.youtube.com/embed/'+vidID, width=800, height=400)
 				]),
 				html.Label( [ html.A(best_doc['headline'] + ' by ' + best_doc['speaker'], href=best_doc['URL'],target='_blank') ]),
 				generate_table(page,stm, max_cos)
