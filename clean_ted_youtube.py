@@ -4,18 +4,14 @@ from pymongo import MongoClient
 import re
 from youtube_videos import youtube_search
 
-#def isTimeFormat(input):
-#	try:
-#		time.strptime(input, '%H:%M')
-#		return True
-#	except ValueError:
-#		return False
+# Use regular expressions to parse time stamps.
 def isTimeFormat( s ):
 	if re.match('[\d]+:[\d]+',s):
 		return True
 	return False
 
-df = pd.read_csv('~/Downloads/owentemple-ted-talks-complete-list/TED_Talks_by_ID_plus-transcripts-and-LIWC-and-MFT-plus-views.csv')
+# Path to TED data stored in CSV file.
+df = pd.read_csv('~/tedtalk_data.csv')
 
 ntalks, nfeats = df.shape
 
