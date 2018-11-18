@@ -2,15 +2,12 @@ from apiclient.discovery import build
 from apiclient.errors import HttpError
 from oauth2client.tools import argparser
 
-#DEVELOPER_KEY = "AIzaSyBd1VmfE0mi1YeZbI16tp6owVNm2ug96VA"
 f = open("./youtube_api_key.txt", 'r')
 DEVELOPER_KEY = f.readline().split()[0]
 f.close()
 
 YOUTUBE_API_SERVICE_NAME = "youtube"
 YOUTUBE_API_VERSION = "v3"
-
-
 
 
 def youtube_search(q, max_results=50,order="relevance", token=None, location=None, location_radius=None):
