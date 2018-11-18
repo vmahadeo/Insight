@@ -5,3 +5,4 @@ This project was completed over the course of two and half weeks, and as such, t
 
 app2.py is the file that runs the entire app in DASH, hosted on AWS
 clean_ted_youtube.py is a script that cleans the ted talk transcript data
+youtube_videos.py is a helper script to fetch youtube videos using the youtube API
